@@ -1,4 +1,4 @@
-# GOROOT、GOPATH、GOBIN与workspace
+# GOROOT GOPATH GOBIN与workspace
 
 ## GOROOT
 Golang环境的安装目录,Golang安装完成后就已经确定.
