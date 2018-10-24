@@ -56,6 +56,19 @@ go build [-o output] [-i] [build flags] [packages]
 
 ## go install
 
+编译并安装包及其依赖项
+
+``` sh
+go install [-i] [build flags] [packages]
+```
+
+该命令在内部执行分为两个步骤
+
+- 编译生成可执行文件
+- 将生成的文件从临时文件夹移动到`$GOPATH/pkg`或`$GOPATH/bin`中.
+
+> `go install`命令参数与`go build`的参数基本相同.
+
 ## go get
 
 ## go doc
