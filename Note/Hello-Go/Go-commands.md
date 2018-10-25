@@ -82,7 +82,7 @@ go get [-d] [-f] [-t] [-u] [-v] [-fix] [-insecure] [build flags] [packages]
 工具会根据域名的不同调用不同的下载工具:
 
 | 资源域名  |  下载工具  |
-| ------------ | ------------ | ------------ | ------------ | ------------ |
+| ------------ | ------------ |
 |  GitHub  |  Git  |
 |  BitBucket  |  Git, Mercurial  |
 |  Google Code Project Hosting  |  Git, Mercurial, Subversion |
