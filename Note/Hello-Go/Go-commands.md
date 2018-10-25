@@ -71,6 +71,41 @@ go install [-i] [build flags] [packages]
 
 ## go get
 
+下载并安装包和依赖项
+
+``` sh
+go get [-d] [-f] [-t] [-u] [-v] [-fix] [-insecure] [build flags] [packages]
+```
+
+`go get`执行两步操作,第一将资源文件下载下来,第二步执行`go install`
+
+工具会根据域名的不同调用不同的下载工具:
+
+| 资源域名  |  下载工具  |
+| ------------ | ------------ | ------------ | ------------ | ------------ |
+|  GitHub  |  Git  |
+|  BitBucket  |  Git, Mercurial  |
+|  Google Code Project Hosting  |  Git, Mercurial, Subversion |
+|  Launchpad  |  Bazaar  |
+
+主要参数说明:
+
+- `-d` 表示只下载,但不安装.
+
+- `-u` 让命令利用网络来更新已有代码包及其依赖包,默认情况下,该命令只会从网络上下载本地不存在的代码包,而不会更新已有的代码包.
+
+- `-f` 仅在使用`-u`标记时才有效,该标记会让命令程序忽略掉对已下载代码包的导入路径的检查,如果下载并安装的代码包所属的项目是你从别人那里Fork过来的,那么这样做就尤为重要了.
+
+- `-fix` 包下载完成后,先执行修正动作,而后再进行编译和安装.
+
+- `-t` 同时下载测试所需的包.
+
+- `-v` 显示执行的命令.
+
+- `-insecure` 表示可以使用非安全的scheme(如HTTP)下载包,如下载包所有的网络协议不支持HTTPS,则可以添加该标记,并在安全的网络环境使用.
+
+> `go get`命令还支持`go build`的参数,详细请参考`go help build`.
+
 ## go doc
 
 ## go env
@@ -78,5 +113,3 @@ go install [-i] [build flags] [packages]
 ## go fix
 
 ## go run
-
-## go
