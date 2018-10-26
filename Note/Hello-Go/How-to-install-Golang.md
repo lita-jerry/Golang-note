@@ -6,7 +6,7 @@
 
 ## 傻瓜式安装
 
-macOS为例,安装至 /usr/local/go
+macOS为例, 安装至 /usr/local/go
 
 ## 配置环境变量
 
@@ -36,7 +36,7 @@ source ~/.bash_profile
 go env
 ```
 
-> 指令出现当前Golang的环境变量,主要查看GOROOT、GOPATH、GOBIN
+> 指令出现当前Golang的环境变量, 主要查看GOROOT、GOPATH、GOBIN
 
 ```
 GOROOT="/usr/local/go"
@@ -77,7 +77,7 @@ func main() {
 go install
 ```
 
-> 生成的可执行文件hello，存放在$GOPATH/bin下,可运行查看结果
+> 生成的可执行文件hello, 存放在$GOPATH/bin下, 可运行查看结果
 
 ``` sh
 $GOPATH/bin/hello
@@ -85,6 +85,6 @@ $GOPATH/bin/hello
 
 ## 关于IDE和插件
 
-支持jetbrains全家桶(按年付费,刚买的...肉疼): [GoLand](https://www.jetbrains.com/go/)
+支持jetbrains全家桶(按年付费, 刚买的...肉疼): [GoLand](https://www.jetbrains.com/go/)
 
-LiteIDE是一款专门为Go语言开发的跨平台轻量级集成开发环境(IDE),由visualfc编写: [GitHub](https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/01.4.md)
+LiteIDE是一款专门为Go语言开发的跨平台轻量级集成开发环境(IDE), 由visualfc编写: [GitHub](https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/01.4.md)
