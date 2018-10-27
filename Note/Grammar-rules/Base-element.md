@@ -14,6 +14,8 @@
 
 所有内奸函数的名称: `append`、`cap`、`close`、`complex`、`copy`、`delete`、`imag`、`len`、`make`、`new`、`panic`、`print`、`println`、`real`和`recover`
 
+> 空标识符`_`用在变量声明或代码包导入,若声明一个变量而不使用,则编译器会报错,使用空标识符`_`就可以绕过编译器检查,不会产生任何操作
+
 ## 关键字
 
 ## 字面量
