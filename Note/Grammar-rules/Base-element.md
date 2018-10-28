@@ -18,6 +18,26 @@
 
 ## 关键字
 
+关键字是被编程语言保留的字符串序列,不能把他们用作标识符,因此也叫保留字
+
+| 类别 |  关键字  |
+| ------------ | ------------ |
+|  程序声明  |  `import`和`package`  |
+|  程序实体声明和定义  |  `chan`、`const`、`func`、`interface`、`map`、`struct`、`type`和`var`  |
+|  程序流程控制  |  `go`、`select`、`break`、`case`、`continue`、`default`、`defer`、`else`、`fallthrough`、`for`、`goto`、`if`、`range`、`return`和`switch`  |
+
+Go的关键字共有`25`个,其中与并发编程有关的关键字有`go`、`chan`、`select`
+
+特别说明一下关键字`type` ———— 类型声明, 用于声明一个自定义类型:
+
+``` Go
+type myString string
+```
+
+这里将`myString`的类型声明为`string`类型的一个别名类型,反过来说,`string`类型是`myString`类型的潜在类型
+
+虽然类型及其潜在类型是不同的两个类型,但是他们的值可以相互转换,不产生新值: `string(myString("ABC"))`
+
 ## 字面量
 
 ## 分隔符
