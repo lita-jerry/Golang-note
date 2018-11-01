@@ -49,6 +49,28 @@ var ips = []string{"192.168.0.1", "192.168.0.2", "192.168.0.3"}
 
 切片值的容量意味着, 在不更换底层数组的前提下, 它的长度的最大值. 可通过 `cap` 函数和切片表达式, 在此前提下最大化一个切片值的长度: `ips[:cap(ips)]`
 
-除 `len` 和 `cap`, 内建函数 `append` 也可应用于切片值: `ips = append(ips, "192.168.0.4")` [点击查看append函数用法](https://tour.golang.org/moretypes/15)
+除 `len` 和 `cap`, 内建函数 `append` 也可应用于切片值: `ips = append(ips, "192.168.0.4")`
+[append文档](https://golang.org/pkg/builtin/#append)
 
-另一个值得提的内置函数是 `make`, 它用于初始化切片、字典或通道类型的值, 对于切片类型来说, 用 `make` 函数的好处就是可以用很短的代码初始化一个长度很大的值: `ips = make([]string, 100)` [点击查看make函数用法](https://tour.golang.org/moretypes/13)
+另一个值得提的内置函数是 `make`, 它用于初始化切片、字典或通道类型的值, 对于切片类型来说, 用 `make` 函数的好处就是可以用很短的代码初始化一个长度很大的值: `ips = make([]string, 100)`, 其中100个元素的值都是string的零值: 空字符串""
+
+To learn more about slices, read the [Slices: usage and internals](https://blog.golang.org/go-slices-usage-and-internals) article.
+
+## 字典
+
+Go中字典类型是散列表(hash table)的一个实现, 其官方称为 `map`, 散列表是一个实现了关联数组的数据结构, 关联数组是用于表示键值对的无序集合的一种抽象数据类型. Go中称键值对为 `键-元素对`, 它把字典值中的每个键都看作与其对应的元素的索引, 这样的索引在同一个字典值中是唯一的
+
+``` Go
+var ipSwitches = map[string]bool{}
+```
+
+变量 `ipSwitches` 的键类型为 string, 元素类型为 bool, `map[string]bool{}` 表示了一个不包含任何元素的字典值
+
+与切片类型一样, 字典类型也是一个引用类型, 字典类型的零值是 `nil`, 字典值的长度表示了其中的建-元素对的数量, 其零值的长度总是0
+
+索引表达式可用于字典值中键-元素的添加和修改:
+``` Go
+ipSwitches["192.168.0.1"] = true  // 不存在该键, 添加元素值
+ipSwitches["192.168.0.1"] = false // 已存在该键, 修改元素值
+delete(ipSwitches, "192.168.0.1") // 删除元素, 无论是否存在键, 都会执行完毕
+```
