@@ -38,7 +38,7 @@ var ipv4 [4]uint8 = [4]uint8{192, 168, 0, 1}
 var ips = []string{"192.168.0.1", "192.168.0.2", "192.168.0.3"}
 ```
 
-与数组不同, 切片的类型字面量(如`[]string`)并不携带长度信息. 切片的长度是会变的, 并且不是类型的一部分; 只要元素类型相同, 两个切片的类型就是相同的. 此外, 一个切片类型的零值总是 `nil`, 此零值的长度和容量都为0
+与数组不同, 切片的类型字面量(如`[]string`)并不携带长度信息. 切片的长度是可变的, 并且不是类型的一部分; 只要元素类型相同, 两个切片的类型就是相同的. 此外, 一个切片类型的零值总是 `nil`, 此零值的长度和容量都为0
 
 切片值相当于对某个底层数组的引用, 其内部结构包含了3个元素:
 - 指向底层数组中某个元素的指针
@@ -74,3 +74,101 @@ ipSwitches["192.168.0.1"] = true  // 不存在该键, 添加元素值
 ipSwitches["192.168.0.1"] = false // 已存在该键, 修改元素值
 delete(ipSwitches, "192.168.0.1") // 删除元素, 无论是否存在键, 都会执行完毕
 ```
+
+## 函数和方法
+
+在Go中, 函数类型是一等类型, 意味着可以把函数当作一个值来传递和使用, 函数值既可以作为其他函数的参数, 也可以作为其结果, 还可以根据函数类型这一特性生成闭包
+
+一个函数的声明通常包括关键字 `func`、函数名、分别由圆括号包裹的参数列表和结果列表, 以及由花括号包裹的函数体:
+``` Go
+func doSomething(parameter int)(int, error) {
+	// do something
+}
+```
+
+函数可以没有参数列表, 也可以没有结果列表, 但空参数列表必须保留括号, 而空结果列表则不用:
+``` Go
+func doSomething() {
+	// do something
+}
+```
+
+另外, 参数列表中的参数必须有名称, 而结果列表中结果的名称则可有可无, 不过结果列表中的结果要么全都省略名称, 要么就全都有名称, 带有结果名称的 `doSomething` 函数的声明:
+``` Go
+func doSomething(parameter int)(result int, err error) {
+	// 如果函数的结果有名称, 以他们为名的变量就会被隐式声明, 在这里就可以直接使用
+	if parameter == 0 {
+		err = errors.New("parameter is 0")
+		return
+	}
+	// 给代表结果的变量赋值, 就相当于设置函数的返回结果
+	result = parameter * 10
+	return
+}
+```
+> Go编程有一个惯用法, 即把 `error` 类型的结果作为函数结果列表的最后一员
+
+可以在使用的时候实现函数执行体, 此时需要将函数提升成为一个类型, 调用的时候将函数当成参数传入(也叫闭包)
+
+``` Go
+// 定义函数类型
+type funcType func (parameter1 int, parameter2 int) (result int, err error)
+
+func callFuncType (a int, b int, func_type funcType) (result int, err error) {
+	if func_type == nil {
+		err = errors.New("func_type is nil")
+		return
+	}
+
+	return func_type(a, b)
+}
+```
+
+上面函数的使用方法:
+``` Go
+var func_type funcType = func (parameter1 int, parameter2 int) (result int, err error) {
+	// 这里可以定义函数执行体内的逻辑
+	result = parameter1 + parameter2
+	return
+}
+
+var result, err = callFuncType(1, 2, func_type)
+```
+
+作为一等类型的函数类型让程序的灵活性大大增加, 接口不再是定义行为的唯一途径
+
+> 函数类型的零值是 `nil`, 检查函数值是否为 `nil` 是有必要的
+
+方法是函数的一种, 它实际上就是某个数据类型关联在一起的函数:
+``` Go
+type myInt int
+
+func (x myInt) add(y int) myInt {
+	x = x + myInt(y)
+	return x
+}
+```
+
+从声明上看, 方法只是在关键字 `func` 和函数名称之间, 加了一个由圆括号包裹的接收者声明. 接收者声明由两部分组成:
+- `x` 指定类型的值在当前方法中的标识符
+- `myInt` 表明这个方法与哪个类型关联
+
+> 参数是以数据值传入到方法中, 修改参数 `x` 并不会影响原值(这里指调用者)
+``` Go
+x := myInt(1)
+y := x.add(2)
+fmt.Println(x, y) // 输出: 1 3
+```
+
+值方法接收者类型是非指针的数据类型, 若将方法改为指针方法, 如下:
+``` Go
+func (x *myInt) add(y int) myInt {
+	*x = *x + myInt(y)
+	return *x
+}
+```
+此时 `fmt.Println(x, y)` 的输出为 `3 3`
+
+
+
+
