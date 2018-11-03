@@ -170,3 +170,34 @@ func (x *myInt) add(y int) myInt {
 此时 `fmt.Println(x, y)` 的输出为 `3 3`
 
 > 对于某个非指针的数据类型, 与它关联的方法的集合中只包含它的值方法. 而对于它的指针类型, 其方法集合中既包含值方法也包含指针方法. 不过, 在非指针数据类型的值上, 也是能够调用其指针方法的, 因为Go在内部做了自动转换. 例如, 若 `add` 方法是指针方法, 那么表达式 `x.add(2)` 会被自动转换为 `(&x).add(2)`
+
+
+## 接口
+
+Go的接口类型用于定义一组行为, 其中每个行为都由一个方法声明表示. 接口类型中的方法声明只有方法签名而没有方法体, 而方法签名包括且仅包括方法的名称、参数列表和结果列表
+``` Go
+type Talk interface {
+	Hello(userName string) string
+	Talk(heard string) (saying string, end bool, err error)
+}
+```
+type、接口类型名称、interface以及由花括号包裹的方法声明集合, 共同组成了一个接口类型声明
+> 其中每个方法声明必须独占一行
+
+只要一个数据类型的方法集合中包含 `Talk` 接口声明的所有方法, 那么它就一定是 `Talk` 接口的实现类型, 这种接口实现方式完全是 `非入侵式` 的
+``` Go
+type myTalk string
+
+func (talk *myTalk) Hello (userName string) string {
+	// 省略部分代码
+}
+
+func (talk myTalk) Talk (heard string) (saying string, end bool, err error) {
+	// 省略部分代码
+}
+```
+> 与 `myTalk` 关联的所有方法均为指针方法, 意味着 `myTalk` 类型并不是 `Talk` 接口的实现类型, `*myTalk` 才是
+
+一个接口类型的变量可以被赋予任何实现类型的值, 例如: `var talk Talk = new(myTalk)`, 内建函数 `new` 的功能是创建一个指定类型的值, 并返回该值的指针. 若想确定变量 `talk` 中的值是否属于 `*myTalk` 类型, 则可以用类型断言来判断: `_, ok := talk.(*myTalk)`
+
+Go的数据类型之间并不存在继承关系, 接口类型之间也是如此, 不过, 一个接口类型的声明中可以嵌入任意其他接口类型. 更通俗地讲, 一组行为中可以包含其他的行为组, 而且数量不限

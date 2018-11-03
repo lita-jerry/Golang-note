@@ -16,3 +16,5 @@
 ### [基本元素](https://github.com/JerrySir/Golang-note/blob/master/Note/Grammar-rules/Base-element.md)
 
 ### [基本类型](https://github.com/JerrySir/Golang-note/blob/master/Note/Grammar-rules/Fundamental-types.md)
+
+### [高级类型](https://github.com/JerrySir/Golang-note/blob/master/Note/Grammar-rules/Advanced-types.md)
