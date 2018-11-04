@@ -82,28 +82,28 @@ delete(ipSwitches, "192.168.0.1") // 删除元素, 无论是否存在键, 都会
 一个函数的声明通常包括关键字 `func`、函数名、分别由圆括号包裹的参数列表和结果列表, 以及由花括号包裹的函数体:
 ``` Go
 func doSomething(parameter int)(int, error) {
-  // do something
+	// do something
 }
 ```
 
 函数可以没有参数列表, 也可以没有结果列表, 但空参数列表必须保留括号, 而空结果列表则不用:
 ``` Go
 func doSomething() {
-  // do something
+	// do something
 }
 ```
 
 另外, 参数列表中的参数必须有名称, 而结果列表中结果的名称则可有可无, 不过结果列表中的结果要么全都省略名称, 要么就全都有名称, 带有结果名称的 `doSomething` 函数的声明:
 ``` Go
 func doSomething(parameter int)(result int, err error) {
-  // 如果函数的结果有名称, 以他们为名的变量就会被隐式声明, 在这里就可以直接使用
-  if parameter == 0 {
-    err = errors.New("parameter is 0")
-    return
-  }
-  // 给代表结果的变量赋值, 就相当于设置函数的返回结果
-  result = parameter * 10
-  return
+	// 如果函数的结果有名称, 以他们为名的变量就会被隐式声明, 在这里就可以直接使用
+	if parameter == 0 {
+		err = errors.New("parameter is 0")
+		return
+	}
+	// 给代表结果的变量赋值, 就相当于设置函数的返回结果
+	result = parameter * 10
+	return
 }
 ```
 > Go编程有一个惯用法, 即把 `error` 类型的结果作为函数结果列表的最后一员
@@ -115,21 +115,21 @@ func doSomething(parameter int)(result int, err error) {
 type funcType func (parameter1 int, parameter2 int) (result int, err error)
 
 func callFuncType (a int, b int, func_type funcType) (result int, err error) {
-  if func_type == nil {
-    err = errors.New("func_type is nil")
-    return
-  }
+	if func_type == nil {
+		err = errors.New("func_type is nil")
+		return
+	}
 
-  return func_type(a, b)
+	return func_type(a, b)
 }
 ```
 
 上面函数的使用方法:
 ``` Go
 var func_type funcType = func (parameter1 int, parameter2 int) (result int, err error) {
-  // 这里可以定义函数执行体内的逻辑
-  result = parameter1 + parameter2
-  return
+	// 这里可以定义函数执行体内的逻辑
+	result = parameter1 + parameter2
+	return
 }
 
 var result, err = callFuncType(1, 2, func_type)
@@ -144,8 +144,8 @@ var result, err = callFuncType(1, 2, func_type)
 type myInt int
 
 func (x myInt) add(y int) myInt {
-  x = x + myInt(y)
-  return x
+	x = x + myInt(y)
+	return x
 }
 ```
 
@@ -163,8 +163,8 @@ fmt.Println(x, y) // 输出: 1 3
 值方法接收者类型是非指针的数据类型, 若将方法改为指针方法, 如下:
 ``` Go
 func (x *myInt) add(y int) myInt {
-  *x = *x + myInt(y)
-  return *x
+	*x = *x + myInt(y)
+	return *x
 }
 ```
 此时 `fmt.Println(x, y)` 的输出为 `3 3`
@@ -177,8 +177,8 @@ func (x *myInt) add(y int) myInt {
 Go的接口类型用于定义一组行为, 其中每个行为都由一个方法声明表示. 接口类型中的方法声明只有方法签名而没有方法体, 而方法签名包括且仅包括方法的名称、参数列表和结果列表
 ``` Go
 type Talk interface {
-  Hello (userName string) string
-  Talk (heard string) (saying string, end bool, err error)
+	Hello (userName string) string
+	Talk (heard string) (saying string, end bool, err error)
 }
 ```
 type、接口类型名称、interface以及由花括号包裹的方法声明集合, 共同组成了一个接口类型声明
@@ -189,11 +189,11 @@ type、接口类型名称、interface以及由花括号包裹的方法声明集�
 type myTalk string
 
 func (talk *myTalk) Hello (userName string) string {
-  // 省略部分代码
+	// 省略部分代码
 }
 
 func (talk myTalk) Talk (heard string) (saying string, end bool, err error) {
-  // 省略部分代码
+	// 省略部分代码
 }
 ```
 > 与 `myTalk` 关联的所有方法均为指针方法, 意味着 `myTalk` 类型并不是 `Talk` 接口的实现类型, `*myTalk` 才是
@@ -203,8 +203,8 @@ func (talk myTalk) Talk (heard string) (saying string, end bool, err error) {
 Go的数据类型之间并不存在继承关系, 接口类型之间也是如此, 不过, 一个接口类型的声明中可以嵌入任意其他接口类型. 更通俗地讲, 一组行为中可以包含其他的行为组, 而且数量不限
 ``` Go
 type ChatBot interface {
-  Hello2 (userName) string
-  Talk
+	Hello2 (userName) string
+	Talk
 }
 
 // 使用ChatBot
@@ -218,8 +218,8 @@ chat.Hello("zhangsan")
 结构体类型不仅可以关联方法, 而且可以有内置元素(又称字段), 结构体类型的声明一般以关键字 `type` 开始, 并依次包含类型名称、关键字 `struct` 以及由花括号包裹的字段声明列表
 ``` Go
 type simpleCN struct {
-  name string
-  talk Talk
+	name string
+	talk Talk
 }
 ```
 结构体类型中的每个字段声明都需独占一行, 一般情况下, 字段声明需由字段名称和字段类型的字面量组成

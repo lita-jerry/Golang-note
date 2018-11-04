@@ -36,30 +36,30 @@ Go在流程控制方面的特点如下:
 var number int
 // 没有else分支
 if number < 100 {
-  number++
+	number++
 }
 
 // 有else分支
 if number < 100 {
-  number++
+	number++
 } else {
-  number--
+	number--
 }
 
 // 包含初始化子语句, 用于初始化局部变量
 if diff := 100 - number; number < 100 {
-  number++
+	number++
 } else {
-  number--
+	number--
 }
 
 // 支持串联
 if diff := 100 - number; number < 100 {
-  number++
+	number++
 } else if number < 200 {
-  number--
+	number--
 } else {
-  number -= 100
+	number -= 100
 }
 ```
 
@@ -75,37 +75,37 @@ if diff := 100 - number; number < 100 {
 var content string = "Go"
 
 switch content {
-  default:
-    fmt.Printf("default\n")
-  case "Python":
-    fmt.Printf("Python\n")
-  case "Go": {
-      fmt.Printf("Go")
-      fmt.Printf("\n")
-  }
+	default:
+		fmt.Printf("default\n")
+	case "Python":
+		fmt.Printf("Python\n")
+	case "Go": {
+			fmt.Printf("Go")
+			fmt.Printf("\n")
+	}
 }
 
 // switch语句可以包含一条子语句来初始化局部变量
 switch lang := strings.TrimSpace(content); lang {
-  default:
-    fmt.Printf("default\n")
-  case "Python":
-    fmt.Printf("Python\n")
-  case "Go":
-    fmt.Printf("Go\n")
+	default:
+		fmt.Printf("default\n")
+	case "Python":
+		fmt.Printf("Python\n")
+	case "Go":
+		fmt.Printf("Go\n")
 }
 
 // 使用fallthrough强制执行后面的case代码, fallthrough不会判断下一条case的结果(或default)是否为true
 switch lang := strings.TrimSpace(content); lang {
-  case "Python":
-    fmt.Printf("Python\n")
-    fallthrough
-  case "Go":
-    fmt.Printf("Go\n")
-  case "Java", "C":
-    fmt.Printf("Other\n")
-  default:
-    fmt.Printf("default\n")
+	case "Python":
+		fmt.Printf("Python\n")
+		fallthrough
+	case "Go":
+		fmt.Printf("Go\n")
+	case "Java", "C":
+		fmt.Printf("Other\n")
+	default:
+		fmt.Printf("default\n")
 }
 ```
 > `break` 可以跳出当前 `switch` 语句
@@ -117,12 +117,12 @@ switch lang := strings.TrimSpace(content); lang {
 var v interface{}
 // do something
 switch v.(type) {
-  case string:
-    fmt.Printf("string value = %s\n", v)
-  case int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64:
-    fmt.Printf("integer value = %d\n", v)
-  default:
-    fmt.Printf("unsupported value, type = %T\n", v)
+	case string:
+		fmt.Printf("string value = %s\n", v)
+	case int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64:
+		fmt.Printf("integer value = %d\n", v)
+	default:
+		fmt.Printf("unsupported value, type = %T\n", v)
 }
 ```
 类型 `switch` 语句的 `switch` 表达式会包含一个特殊的类型断言, 例如 `v.(type)`, 它虽然特殊, 但是也要遵循类型断言的规则; 其次, 每个 `case` 表达式中包含的都是类型字面量而不是表达式; `fallthrough` 语句不允许出现在类型 `switch` 语句中
@@ -130,12 +130,12 @@ switch v.(type) {
 类型 `switch` 语句的 `switch` 表达式还有一种变形写法, 如下:
 ``` Go
 switch i := v.(type) {
-  case string:
-    fmt.Printf("string value = %s\n", i)
-  case int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64:
-    fmt.Printf("integer value = %d\n", i)
-  default:
-    fmt.Printf("unsupported value, type = %T\n", i)
+	case string:
+		fmt.Printf("string value = %s\n", i)
+	case int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64:
+		fmt.Printf("integer value = %d\n", i)
+	default:
+		fmt.Printf("unsupported value, type = %T\n", i)
 }
 ```
 这里的 `i := v.(type)` 使经类型转换后的值得以保存, `i` 的类型一定会是 `v` 的值的实际类型

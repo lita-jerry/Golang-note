@@ -11,12 +11,12 @@
 package main
 
 import (
-  "fmt"
-  "math/rand"
+	"fmt"
+	"math/rand"
 )
 
 func main() {
-  fmt.Println("The random number is",  rand.Intn(10))
+	fmt.Println("The random number is",  rand.Intn(10))
 }
 ```
 
@@ -34,8 +34,8 @@ func main() {
 
 ``` Go
 import (
-  "xxx1/package"
-  package2  "xxx2/package"
+	"xxx1/package"
+	package2	"xxx2/package"
 )
 ```
 
@@ -47,12 +47,12 @@ import (
 package main
 
 import (
-  "fmt"
-  .  "math/rand"
+	"fmt"
+	.	"math/rand"
 )
 
 func main() {
-  fmt.Println("The random number is",  Intn(10))
+	fmt.Println("The random number is",  Intn(10))
 }
 ```
 
@@ -62,12 +62,12 @@ func main() {
 package main
 
 import (
-  "fmt"
-  _  "math/rand"
+	"fmt"
+	_	"math/rand"
 )
 
 func main() {
-  fmt.Println("HelloWorld")
+	fmt.Println("HelloWorld")
 }
 ```
 
@@ -85,7 +85,7 @@ Go中的变量、常量、函数和类型声明可统称为程序实体, 而他�
 
 ``` Go
 func init() {
-  fmt.Println("Initialize...")
+	fmt.Println("Initialize...")
 }
 ```
 

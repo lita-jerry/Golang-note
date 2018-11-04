@@ -58,7 +58,7 @@ const DEFAULT_PORT int = 8080
 
 ``` Go
 const (
-  DEFAULT_IP string = '192.168.0.1'
-  DEFAULT_PORT int = 8080
+	DEFAULT_IP string = '192.168.0.1'
+	DEFAULT_PORT int = 8080
 )
 ```

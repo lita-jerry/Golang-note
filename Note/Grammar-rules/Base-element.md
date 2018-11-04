@@ -49,8 +49,8 @@ type myString string
 
 ``` Go
 type People struct {
-  Name  string
-  Sex  int
+	Name	string
+	Sex	int
 }
 ```
 
