@@ -18,3 +18,5 @@
 ### [基本类型](https://github.com/JerrySir/Golang-note/blob/master/Note/Grammar-rules/Fundamental-types.md)
 
 ### [高级类型](https://github.com/JerrySir/Golang-note/blob/master/Note/Grammar-rules/Advanced-types.md)
+
+### [流程控制](https://github.com/JerrySir/Golang-note/blob/master/Note/Grammar-rules/Flow-control.md)
