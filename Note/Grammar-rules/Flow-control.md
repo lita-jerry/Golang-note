@@ -139,3 +139,112 @@ switch i := v.(type) {
 }
 ```
 这里的 `i := v.(type)` 使经类型转换后的值得以保存, `i` 的类型一定会是 `v` 的值的实际类型
+
+## for 语句
+
+`for` 语句用于根据给定的条件重复执行一个代码块, 这个条件或由 `for` 子句直接给出, 或从 `range` 子句中获得
+
+### for 子句
+
+一条 `for` 语句可以携带一条 `for` 子句, `for` 子句可以包含初始化子句、条件子句和后置子句
+``` Go
+package main
+
+import "fmt"
+
+func main() {
+
+  // The most basic type, with a single condition.
+  i := 1
+  for i <= 3 {
+    fmt.Println(i)
+    i = i + 1
+  }
+
+  // A classic initial/condition/after `for` loop.
+  for j := 7; j <= 9; j++ {
+    fmt.Println(j)
+  }
+
+  // `for` without a condition will loop repeatedly
+  // until you `break` out of the loop or `return` from
+  // the enclosing function.
+  for {
+    fmt.Println("loop")
+    break
+  }
+
+  // You can also `continue` to the next iteration of
+  // the loop.
+  for n := 0; n <= 5; n++ {
+    if n%2 == 0 {
+      continue
+    }
+    fmt.Println(n)
+  }
+}
+```
+在 `for` 子句的初始化子句和后置子句同时被省略, 或者其中的部分代码都省略的情况下, 分隔符 `;` 可以省略:
+``` Go
+var m = 1
+for m < 50 { 省略初始化子句和后置子句
+  m *= 3
+}
+```
+
+### range 子句
+
+一条 `for` 语句可以携带一条 `range` 子句, 这样就可以迭代出一个数组或切片值中的每个元素、一个字符串中的每个字符, 或者一个字典中的每个键值对, 以及持续地接收一个通道类型值中的元素, 随着迭代的进行, 每一次获取的迭代值(索引、元素、字符或键值对)都会赋值给相应的迭代变量:
+``` Go
+package main
+
+import "fmt"
+
+func main() {
+
+  // Here we use `range` to sum the numbers in a slice.
+  // Arrays work like this too.
+  nums := []int{2, 3, 4}
+  sum := 0
+  for _, num := range nums {
+    sum += num
+  }
+  fmt.Println("sum:", sum)
+
+  // `range` on arrays and slices provides both the
+  // index and value for each entry. Above we didn't
+  // need the index, so we ignored it with the
+  // blank identifier `_`. Sometimes we actually want
+  // the indexes though.
+  for i, num := range nums {
+    if num == 3 {
+      fmt.Println("index:", i)
+    }
+  }
+
+  // `range` on map iterates over key/value pairs.
+  kvs := map[string]string{"a": "apple", "b": "banana"}
+  for k, v := range kvs {
+    fmt.Printf("%s -> %s\n", k, v)
+  }
+
+  // `range` can also iterate over just the keys of a map.
+  for k := range kvs {
+    fmt.Println("key:", k)
+  }
+
+  // `range` on strings iterates over Unicode code
+  // points. The first value is the starting byte index
+  // of the `rune` and the second the `rune` itself.
+  for i, c := range "go" {
+    fmt.Println(i, c)
+  }
+}
+```
+> 在 `range` 关键字右边的是 `range` 表达式, `range` 表达式一般只会在迭代开始前被求值一次
+
+使用 `range` 子句, 有以下三点需要注意:
+- 若对数组、切片或字符串进行迭代, 且 `:=` 左边只有一个迭代变量时, 一定要小心, 这时只会得到其中元素的索引, 而不是元素本身; 这很可能不是你想要的
+- 迭代没有任何元素的数组值、为 `nil` 的切片值, 为 `nil` 的字典或为 `""` 的字符串值, 并不会执行 `for` 语句中的代码, `for` 语句在一开始时就会直接结束执行, 因为这些值的长度都为 `0`
+- 迭代为 `nil` 的通道值会让当前流程永远阻塞在 `for` 语句上!
+
