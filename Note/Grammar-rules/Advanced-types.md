@@ -173,6 +173,40 @@ func (x *myInt) add(y int) myInt {
 
 > 对于某个非指针的数据类型, 与它关联的方法的集合中只包含它的值方法. 而对于它的指针类型, 其方法集合中既包含值方法也包含指针方法. 不过, 在非指针数据类型的值上, 也是能够调用其指针方法的, 因为Go在内部做了自动转换. 例如, 若 `add` 方法是指针方法, 那么表达式 `x.add(2)` 会被自动转换为 `(&x).add(2)`
 
+### 参数可变型函数
+
+参数可变型函数可以使用任何数量的尾随参数, 例如我们使用过的 `fmt.Println()`
+``` Go
+package main
+
+import "fmt"
+
+// Here's a function that will take an arbitrary number
+// of `int`s as arguments.
+func sum(nums ...int) {
+  fmt.Print(nums, " ")
+  total := 0
+  for _, num := range nums {
+    total += num
+  }
+  fmt.Println(total)
+}
+
+func main() {
+
+  // Variadic functions can be called in the usual way
+  // with individual arguments.
+  sum(1, 2)
+  sum(1, 2, 3)
+
+  // If you already have multiple args in a slice,
+  // apply them to a variadic function using
+  // `func(slice...)` like this.
+  nums := []int{1, 2, 3, 4}
+  sum(nums...)
+}
+```
+> 如果切片中已经有多个 `args`, 请使用 `func(slice...)` 这样的方法将他们应用于参数可变型函数
 
 ## 接口
 
