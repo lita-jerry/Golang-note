@@ -297,3 +297,35 @@ defer func() {
 }()
 ```
 将此段代码放在函数体的开始处, 这样可以有效防止该函数及其下层调用中的代码引发运行时恐慌, 那么这个结果就会是非 `nil`, 一旦发现其结果非 `nil`, 就应该采取相应的措施
+
+Go标准库中有一种常见的用法值得参考:
+``` Go
+// fmt中的Token函数部分声明
+func (s *ss) Token(skipSpace bool, f func(rune) bool) (tok []byte, err error) {
+  defer func() {
+    if e := recover(); e != nil {
+      if se, ok := e.(scanError); ok {
+        err = se.err
+      } else {
+        panic(e)
+      }
+    }
+  }{}
+  // 省略部分代码
+}
+```
+在 `Token` 函数包含的延迟函数中, 当运行时恐慌携带值的类型是 `fmt.scanError` 时, 这个值就会被赋值给代表结果值的变量 `err`, 否则运行时恐慌就会被重新引发. 如果这个重新引发的运行时恐慌传递到了调用栈的最顶层, 那么标准输出上就会打印出类型这样的内容:
+```
+  panic: <运行时恐慌被首次引发时携带的值的字符串形式> [recovered]
+    panic: <运行时恐慌被重新引发时携带的值的字符串形式>
+
+  goroutine 1 [running]:
+  main.func·001()
+  <调用栈信息>
+
+  goroutine 2 [runnable]:
+  exit status 2
+```
+这里展现的惯用法与两个:
+- 可以把运行时恐慌的携带值转换为 `error` 类型值, 并当做常规结果返回给调用方, 这样既阻止了运行时恐慌的扩散, 又传递了引起恐慌的原因
+- 检查运行时恐慌携带值的类型, 并根据类型做不同的后续动作, 这样可以精确地控制程序的错误处理行为
