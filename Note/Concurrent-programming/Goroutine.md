@@ -32,20 +32,20 @@ func main() {
   fmt.Println("quit")
 }
 
-//以上输出: hello与world的打印顺序可能不同
-// hello
-// hello
-// hello
-// hello
+//以上输出: hello与world的打印顺序可能因为运行环境不同而不同
 // hello
 // world
+// hello
 // world
+// hello
 // world
+// hello
 // world
+// hello
 // world
 
 // quit
 ```
-> runtime.Gosched()表示让CPU将时间让给别的线程, 下次某个时刻恢复执行该 `goroutine`
+> runtime.Gosched()表示出让时间片, 让出当前 `goroutine` 执行权限, 调度器会安排其他等待的任务去运行, 并在下轮某个时间片再从该位置恢复执行
 多个 `goroutine` 运行在同一个进程里面, 共享内存数据, 不过设计上我们要遵循 `不要通过共享来通信, 而是要通过通信来共享`
 > 默认情况下, 在 `Go 1.5` 将标识并发系统个数的`runtime.GOMAXPROCS`的初始值由 `1` 改为了运行环境的CPU核心数, 如果在 `Go 1.5` 及其以前的环境使用线程, 需要显示的配置核心数量: `runtime.GOMAXPROCS(n)`
