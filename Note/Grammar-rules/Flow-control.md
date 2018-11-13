@@ -310,7 +310,7 @@ func (s *ss) Token(skipSpace bool, f func(rune) bool) (tok []byte, err error) {
         panic(e)
       }
     }
-  }{}
+  }()
   // 省略部分代码
 }
 ```
