@@ -17,11 +17,11 @@ func printEvenNumber(c chan int, quit chan int) {
   for i := 0;; i++ {
     if (i % 2 == 0) {
       select {
-      case c <- i:
-      case <- quit:
-        return
-      default:
-        fmt.Println("当c阻塞的时候执行这里")
+        case c <- i:
+        case <- quit:
+          return
+        default:
+          fmt.Println("当c阻塞的时候执行这里")
       }
     }
   }
