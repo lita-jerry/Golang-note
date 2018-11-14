@@ -12,7 +12,7 @@
 - 接口类型error
 - 常量true、false和iota
 
-所有内奸函数的名称: `append`、`cap`、`close`、`complex`、`copy`、`delete`、`imag`、`len`、`make`、`new`、`panic`、`print`、`println`、`real`和`recover`
+所有内建函数的名称: `append`、`cap`、`close`、`complex`、`copy`、`delete`、`imag`、`len`、`make`、`new`、`panic`、`print`、`println`、`real`和`recover`
 
 > 空标识符`_`用在变量声明或代码包导入, 若声明一个变量而不使用, 则编译器会报错, 使用空标识符`_`就可以绕过编译器检查, 不会产生任何操作
 
@@ -27,6 +27,24 @@
 |  程序流程控制  |  `go`、`select`、`break`、`case`、`continue`、`default`、`defer`、`else`、`fallthrough`、`for`、`goto`、`if`、`range`、`return`和`switch`  |
 
 Go的关键字共有`25`个, 其中与并发编程有关的关键字有`go`、`chan`、`select`
+
+常用关键字及其解释:
+- var 变量声明
+- const 常量声明
+- package 包声明
+- import 包引入
+- func 定义函数和方法
+- return 函数返回
+- defer 类似析构函数, 在函数结束前执行
+- go 以协成的方式运行
+- select 选择不同类型的通讯
+- interface 定义接口
+- struct 定义抽象数据类型
+- break、case、continue、for、fallthrough、else、if、switch、goto、default 流程控制
+- chan channel通讯
+- type 声明自定义类型
+- map 声明map类型数据
+- range 读取slice、map、channel数据
 
 特别说明一下关键字`type` ———— 类型声明, 用于声明一个自定义类型:
 
