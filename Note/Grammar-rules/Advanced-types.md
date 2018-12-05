@@ -270,13 +270,12 @@ type simpleCN struct {
 
 结构体的匿名字段:
 ``` Go
-type simple struct {
+type User struct {
   name string
-  talk Talk
 }
 
-type simpleCN struct {
-  simple // 匿名字段, 那么默认simpleCN就包含了simple的所有字段
-  time string
+type Team struct {
+  User // 匿名字段, 那么默认Team就包含了User的所有字段
+  name string // 假设有字段名冲突, 访问Team.name也只是Team的name字段, 如需访问User的name需要Team. User.name
 }
 ```
