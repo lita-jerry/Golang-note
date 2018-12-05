@@ -267,3 +267,16 @@ type simpleCN struct {
 - 多个字段值的顺序应该与结构体类型中字段声明的顺序一致, 并且不能够省略对任何一字段的赋值. 例如 `simpleCN{"simple.cn", nil}` 是合法的, 而 `simpleCN{nil, "simple.cn"}` 和 `simpleCN{"simple.cn"}` 就不合法. 在不忽略字段名称的写法中, 未被赋值的字段会自动被其类型的零值填充
 
 > 与数组类型相同, 结构体类型属于值类型, 因此结构体类型的零值不是 `nil`, 例如 `simpleCN` 的零值就是 `simpleCN{}`
+
+结构体的匿名字段:
+``` Go
+type simple struct {
+  name string
+  talk Talk
+}
+
+type simpleCN struct {
+  simple // 匿名字段, 那么默认simpleCN就包含了simple的所有字段
+  time string
+}
+```
