@@ -275,7 +275,7 @@ type User struct {
 }
 
 type Team struct {
-  User // 匿名字段, 那么默认Team就包含了User的所有字段
-  name string // 假设有字段名冲突, 访问Team.name也只是Team的name字段, 如需访问User的name需要Team. User.name
+  User // 匿名字段, 那么默认Team就包含了User的所有字段, 也包含User的所有method方法, 即: 字段/方法继承
+  name string // 假设有字段名冲突, 访问Team.name也只是Team的name字段, 如需访问User的name需要Team. User.name, 即: 字段/方法覆盖
 }
 ```
